@@ -1,17 +1,21 @@
 "use client";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useQuery } from "@tanstack/react-query";
 import { HomeList } from "./HomeList";
-const queryClient = new QueryClient();
+import { Home } from "../api/homes/route";
 
 export function Homes() {
+  const { data: homes, isLoading } = useQuery<{ data: Home[] }, Error, Home[]>({
+    queryKey: ["homes"],
+    queryFn: () => fetch("/api/homes").then((res) => res.json()),
+    select: ({ data }) => data,
+  });
+
+  if (!homes || isLoading) return <div>Loading...</div>;
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <div className="flex items-center">
-        <HomeList />
-      </div>
-      <ReactQueryDevtools initialIsOpen={true} />
-    </QueryClientProvider>
+    <div className="flex items-center">
+      <HomeList homes={homes} />
+    </div>
   );
 }
