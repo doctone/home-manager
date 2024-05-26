@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} flex`}>
         <SideNav />
-        <div className="text-white">{children}</div>
+        <div className="text-white flex justify-center py-10">{children}</div>
       </body>
     </html>
   );

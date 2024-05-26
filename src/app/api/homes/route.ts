@@ -1,5 +1,17 @@
+import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
 
+export type Home = {
+  id: number;
+  name: string;
+  description: string;
+};
+
 export async function GET(request: Request) {
-  return NextResponse.json({ message: "Hello, World!" });
+  const { rows } = await sql<Home>`
+  SELECT * FROM homes
+`;
+  console.log("inside api", rows);
+
+  return NextResponse.json({ data: rows });
 }

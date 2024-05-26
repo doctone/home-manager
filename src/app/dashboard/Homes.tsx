@@ -8,7 +8,9 @@ const queryClient = new QueryClient();
 export function Homes() {
   return (
     <QueryClientProvider client={queryClient}>
-      <HomeList />
+      <div className="flex items-center">
+        <HomeList />
+      </div>
       <ReactQueryDevtools initialIsOpen={true} />
     </QueryClientProvider>
   );
