@@ -1,20 +1,27 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import {
+  queryOptions,
+  useQuery,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 import { HomeList } from "./HomeList";
 import { Home } from "../api/homes/route";
 
-export function Homes() {
-  const { data: homes, isLoading } = useQuery<{ data: Home[] }, Error, Home[]>({
-    queryKey: ["homes"],
-    queryFn: () => fetch("/api/homes").then((res) => res.json()),
-    select: ({ data }) => data,
-  });
+const query = queryOptions<{ data: Home[] }, Error, Home[]>({
+  queryKey: ["homes"],
+  queryFn: () =>
+    fetch("http://localhost:3000/api/homes", { cache: "no-cache" }).then(
+      (res) => res.json()
+    ),
+  select: ({ data }) => data,
+});
 
-  if (!homes || isLoading) return <div>Loading...</div>;
+export function Homes() {
+  const { data: homes } = useSuspenseQuery(query);
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-start">
       <HomeList homes={homes} />
     </div>
   );

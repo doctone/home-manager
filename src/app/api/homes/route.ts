@@ -11,7 +11,6 @@ export async function GET(request: Request) {
   const { rows } = await sql<Home>`
   SELECT * FROM homes
 `;
-  console.log("inside api", rows);
 
   return NextResponse.json({ data: rows });
 }

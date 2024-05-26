@@ -59,21 +59,21 @@ async function seedHomes(client) {
     await client.sql`DELETE FROM homes`;
 
     // Insert data into the "homes" table
-    const insertedHomes = await Promise.all(
-      homes.map(async (home) => {
-        return client.sql`
-        INSERT INTO homes (name, description, user_id)
-        VALUES (${home.name}, ${home.description}, ${home.user_id})
-        ON CONFLICT (id) DO NOTHING;
-      `;
-      })
-    );
+    // const insertedHomes = await Promise.all(
+    //   homes.map(async (home) => {
+    //     return client.sql`
+    //     INSERT INTO homes (name, description, user_id)
+    //     VALUES (${home.name}, ${home.description}, ${home.user_id})
+    //     ON CONFLICT (id) DO NOTHING;
+    //   `;
+    //   })
+    // );
 
-    console.log(`Seeded ${insertedHomes.length} homes`);
+    // console.log(`Seeded ${insertedHomes.length} homes`);
 
     return {
       createTable,
-      homes: insertedHomes,
+      // homes: insertedHomes,
     };
   } catch (error) {
     console.error("Error seeding homes:", error);
