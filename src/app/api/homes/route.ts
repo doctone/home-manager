@@ -9,8 +9,8 @@ export type Home = {
 
 export async function GET(request: Request) {
   const { rows } = await sql<Home>`
-  SELECT * FROM homes
-`;
+    SELECT * FROM homes
+  `;
 
   return NextResponse.json({ data: rows });
 }
