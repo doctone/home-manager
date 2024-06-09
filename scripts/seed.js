@@ -16,6 +16,7 @@ async function seedUsers(client) {
     `;
 
     console.log(`Created "users" table`);
+    await client.sql`DELETE FROM users`;
 
     // Insert data into the "users" table
     const insertedUsers = await Promise.all(
@@ -55,6 +56,7 @@ async function seedHomes(client) {
     `;
 
     console.log(`Created "homes" table`);
+    await client.sql`DELETE FROM homes`;
 
     // Insert data into the "homes" table
     const insertedHomes = await Promise.all(
